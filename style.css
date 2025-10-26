@@ -1,119 +1,269 @@
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+/* Fonts: Inter for UI, Space Mono for the big number */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Mono:wght@700&display=swap');
+
+:root {
+  /* Colors */
+  --bg: #0f1115;
+  --surface: #161a22;
+  --elev-1: #1b2130;
+  --text: #e7e9ee;
+  --muted: #9aa3b2;
+  --primary: #4f8cff;
+  --primary-600: #3c6fe0;
+  --success: #60b347;
+  --danger: #ff5364;
+  --accent: #ffd166;
+
+  /* Layout */
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --ring: 0 0 0 3px rgba(79, 140, 255, 0.35);
+
+  /* Type & spacing */
+  --fs-1: clamp(1.6rem, 1.4rem + 0.5vw, 2rem);
+  --fs-2: clamp(2.2rem, 2rem + 1vw, 3rem);
+  --fs-3: clamp(3.4rem, 3rem + 2vw, 5.6rem);
+  --space-1: 0.75rem;
+  --space-2: 1rem;
+  --space-3: 1.25rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+}
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
 }
 
 html {
   font-size: 62.5%;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Press Start 2P', sans-serif;
-  color: #eee;
-  background-color: #222;
-  /* background-color: #60b347; */
+  min-height: 100svh;
+  background: radial-gradient(
+      1200px 800px at 20% -10%,
+      #1a2030 20%,
+      var(--bg) 60%
+    )
+    fixed;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.5;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6) var(--space-4);
 }
 
-/* LAYOUT */
-header {
+/* Container & Card */
+.container {
+  width: min(960px, 100%);
+}
+
+.game-card {
+  background: linear-gradient(180deg, var(--surface), var(--elev-1));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: clip;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.game-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Header */
+.game-header {
   position: relative;
-  height: 35vh;
-  border-bottom: 7px solid #eee;
+  padding: var(--space-6) var(--space-6) calc(var(--space-6) + 4.5rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-main {
-  height: 65vh;
-  color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.left {
-  width: 52rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.right {
-  width: 52rem;
-  font-size: 2rem;
-}
-
-/* ELEMENTS STYLE */
-h1 {
-  font-size: 4rem;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.number {
-  background: #eee;
-  color: #333;
-  font-size: 6rem;
-  width: 15rem;
-  padding: 3rem 0rem;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
+.game-header h1 {
+  font-size: var(--fs-2);
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0.25rem;
 }
 
 .between {
   font-size: 1.4rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
+  color: var(--muted);
 }
 
-.again {
+.again.btn-ghost {
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: var(--space-6);
+  right: var(--space-6);
+}
+
+/* Big number badge */
+.number {
+  font-family: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: var(--fs-3);
+  color: #0a0c12;
+  background: #fff;
+  width: 10rem;
+  text-align: center;
+  padding: 1.2rem 0;
+  border-radius: 999px;
+  position: absolute;
+  bottom: -2.2rem;
+  left: var(--space-6);
+  transform-origin: center;
+  transition: transform 0.25s ease, background-color 0.25s ease,
+    color 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Content area */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  padding: calc(var(--space-6) + 1.2rem) var(--space-6) var(--space-6);
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.right {
+  font-size: var(--fs-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* Input group */
+.input-group {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
 }
 
 .guess {
-  background: none;
-  border: 4px solid #eee;
-  font-family: inherit;
-  color: inherit;
-  font-size: 5rem;
-  padding: 2.5rem;
-  width: 25rem;
-  text-align: center;
-  display: block;
-  margin-bottom: 3rem;
+  appearance: textfield;
+  background: #0f131c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  font-size: clamp(2rem, 1.8rem + 0.5vw, 3rem);
+  padding: 1.6rem 1.8rem;
+  width: 100%;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.06s ease;
+}
+.guess::placeholder {
+  color: #778;
+}
+.guess:focus {
+  border-color: var(--primary);
+  box-shadow: var(--ring);
 }
 
+/* Buttons */
 .btn {
   border: none;
-  background-color: #eee;
-  color: #222;
-  font-size: 2rem;
-  font-family: inherit;
-  padding: 2rem 3rem;
   cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1.3rem 1.6rem;
+  border-radius: 10px;
+  transition: transform 0.06s ease, background-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease;
+  user-select: none;
+}
+.btn:active {
+  transform: translateY(1px);
 }
 
-.btn:hover {
-  background-color: #ccc;
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 140, 255, 0.35);
+}
+.btn-primary:hover {
+  background: var(--primary-600);
 }
 
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Message bar */
 .message {
-  margin-bottom: 8rem;
-  height: 3rem;
+  min-height: 3.2rem;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-.label-score {
-  margin-bottom: 2rem;
+/* Badges */
+.badges {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.badge {
+  font-size: 1.4rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+}
+.badge-accent {
+  background: rgba(255, 209, 102, 0.18);
+  border-color: rgba(255, 209, 102, 0.45);
+}
+
+/* Utility: visually hidden (accessible labels) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+/* Game state helpers (optional classes your JS can toggle if you want)
+   You can keep using inline style changes; these are here for future polish. */
+body.win .number {
+  background: var(--success);
+  color: #0d2617;
+  transform: scale(1.05);
+}
+body.lose .number {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 840px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  .game-header {
+    padding-bottom: calc(var(--space-6) + 5rem);
+  }
+  .number {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

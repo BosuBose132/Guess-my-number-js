@@ -27,6 +27,8 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('.number').textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
+    document.body.classList.remove('lose');
+    document.body.classList.add('win');
 
     if (score > highscore) {
       highscore = score;
@@ -52,6 +54,8 @@ document.querySelector('.check').addEventListener('click', function () {
     } else {
       document.querySelector('.message').textContent = 'You lost the game!';
       document.querySelector('.score').textContent = 0;
+      document.body.classList.remove('win');
+      document.body.classList.add('lose');
     }
   }
 });
@@ -64,4 +68,5 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.guess').value = '';
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
+  document.body.classList.remove('win', 'lose');
 });

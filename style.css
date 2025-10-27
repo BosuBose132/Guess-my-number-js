@@ -52,21 +52,29 @@ body {
   color: var(--text);
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   line-height: 1.5;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-6) var(--space-4);
 }
 
 /* Container & Card */
 .container {
-  width: min(960px, 100%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-card {
   background: linear-gradient(180deg, var(--surface), var(--elev-1));
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: clip;
+  width: min(420px, 90%); /* narrower width */
+  min-height: 640px; /* make it tall */
+  display: flex;
+  flex-direction: column; /* stack header and content vertically */
+  justify-content: space-between;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .game-card:hover {
@@ -119,10 +127,11 @@ body {
 
 /* Content area */
 .content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
   padding: calc(var(--space-6) + 1.2rem) var(--space-6) var(--space-6);
+  flex-grow: 1;
 }
 
 .left {
@@ -265,5 +274,10 @@ body.lose .number {
   .number {
     left: 50%;
     transform: translateX(-50%);
+  }
+  .left,
+  .right {
+    align-items: center;
+    text-align: center;
   }
 }

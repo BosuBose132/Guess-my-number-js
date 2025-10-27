@@ -1,34 +1,34 @@
-/* Fonts: Inter for UI, Space Mono for the big number */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Mono:wght@700&display=swap');
+/* Clean, spacious game UI — single column, large targets, subtle motion */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Mono:wght@700&display=swap');
 
 :root {
-  /* Colors */
-  --bg: #0f1115;
-  --surface: #161a22;
-  --elev-1: #1b2130;
-  --text: #e7e9ee;
-  --muted: #9aa3b2;
-  --primary: #4f8cff;
-  --primary-600: #3c6fe0;
-  --success: #60b347;
-  --danger: #ff5364;
-  --accent: #ffd166;
+  /* Palette — calm game vibe */
+  --bg: #1b1020; /* deep plum */
+  --bg-soft: #24122b; /* card surface */
+  --bg-soft-2: #2b1633; /* input surface */
+  --text: #efeaf2;
+  --muted: #c4b8cc;
+  --primary: #9e7bff; /* lavender */
+  --primary-600: #7c5de6;
+  --accent: #f1c27d; /* warm accent for highscore */
+  --success: #3c8628;
+  --danger: #ff6b7a;
 
-  /* Layout */
+  /* Layout / type scale */
+  --radius-xl: 24px;
   --radius: 14px;
-  --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  --ring: 0 0 0 3px rgba(79, 140, 255, 0.35);
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  --ring: 0 0 0 3px rgba(158, 123, 255, 0.35);
 
-  /* Type & spacing */
-  --fs-1: clamp(1.6rem, 1.4rem + 0.5vw, 2rem);
-  --fs-2: clamp(2.2rem, 2rem + 1vw, 3rem);
-  --fs-3: clamp(3.4rem, 3rem + 2vw, 5.6rem);
+  --fs-1: clamp(1.6rem, 1.3rem + 0.6vw, 2rem);
+  --fs-2: clamp(2.6rem, 2rem + 1.4vw, 4.2rem); /* title */
+  --fs-num: clamp(4rem, 3.2rem + 4vw, 7.2rem); /* big number */
   --space-1: 0.75rem;
-  --space-2: 1rem;
-  --space-3: 1.25rem;
-  --space-4: 1.5rem;
-  --space-5: 2rem;
-  --space-6: 3rem;
+  --space-2: 1.2rem;
+  --space-3: 1.8rem;
+  --space-4: 2.4rem;
+  --space-5: 3.2rem;
+  --space-6: 4.8rem;
 }
 
 * {
@@ -36,187 +36,147 @@
   margin: 0;
   padding: 0;
 }
-
 html {
   font-size: 62.5%;
 }
-
 body {
-  min-height: 100svh;
-  background: radial-gradient(
-      1200px 800px at 20% -10%,
-      #1a2030 20%,
-      var(--bg) 60%
-    )
-    fixed;
-  color: var(--text);
+  min-height: 100vh;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  line-height: 1.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--text);
+  background: radial-gradient(
+      1200px 800px at 50% -10%,
+      #2b1633 10%,
+      transparent 60%
+    ),
+    radial-gradient(900px 600px at 10% 110%, #24122b 10%, transparent 60%),
+    var(--bg);
+  display: grid;
+  place-items: center;
   padding: var(--space-6) var(--space-4);
+  line-height: 1.55;
 }
 
-/* Container & Card */
-.container {
+/* Centered, portrait card */
+main {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
-
-.game-card {
-  background: linear-gradient(180deg, var(--surface), var(--elev-1));
-  border-radius: var(--radius);
+.game {
+  width: min(520px, 92%);
+  min-height: 680px; /* taller than wide */
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg-soft-2));
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow);
-  width: min(420px, 90%); /* narrower width */
-  min-height: 640px; /* make it tall */
+  padding: var(--space-6) var(--space-5);
   display: flex;
-  flex-direction: column; /* stack header and content vertically */
-  justify-content: space-between;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.game-card:hover {
-  transform: translateY(-2px);
-}
-
-/* Header */
-.game-header {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
   position: relative;
-  padding: var(--space-6) var(--space-6) calc(var(--space-6) + 4.5rem);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.game-header h1 {
+/* Top-right Again button */
+
+/* Title & subtitle */
+.title {
+  font-weight: 800;
   font-size: var(--fs-2);
-  font-weight: 600;
-  text-align: left;
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.06em;
+  text-align: center;
 }
-
-.between {
+.subtitle {
   font-size: 1.4rem;
   color: var(--muted);
-}
-
-.again.btn-ghost {
-  position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
+  text-align: center;
 }
 
 /* Big number badge */
 .number {
-  font-family: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: var(--fs-3);
-  color: #0a0c12;
+  font-family: 'Space Mono', ui-monospace, Menlo, monospace;
+  font-size: var(--fs-num);
+  color: #1c0f22;
   background: #fff;
-  width: 10rem;
-  text-align: center;
-  padding: 1.2rem 0;
-  border-radius: 999px;
-  position: absolute;
-  bottom: -2.2rem;
-  left: var(--space-6);
-  transform-origin: center;
+  width: 132px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  border-radius: 100%;
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.45);
+  transform: translateY(6px);
   transition: transform 0.25s ease, background-color 0.25s ease,
     color 0.25s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Content area */
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  padding: calc(var(--space-6) + 1.2rem) var(--space-6) var(--space-6);
-  flex-grow: 1;
-}
-
-.left {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.right {
-  font-size: var(--fs-1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-3);
-}
-
-/* Input group */
-.input-group {
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-}
-
-.guess {
-  appearance: textfield;
-  background: #0f131c;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  font-size: clamp(2rem, 1.8rem + 0.5vw, 3rem);
-  padding: 1.6rem 1.8rem;
+/* Input + button stack (single column, spacious) */
+.stack {
   width: 100%;
-  border-radius: 12px;
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+.guess {
+  background: #1e1225;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  font-size: clamp(2.2rem, 1.8rem + 0.9vw, 3.2rem);
+  padding: 1.8rem 2rem;
+  border-radius: 16px;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.06s ease;
+  width: 100%;
+  text-align: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .guess::placeholder {
-  color: #778;
+  color: #9a8aa7;
 }
 .guess:focus {
   border-color: var(--primary);
   box-shadow: var(--ring);
 }
 
-/* Buttons */
 .btn {
   border: none;
   cursor: pointer;
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding: 1.3rem 1.6rem;
-  border-radius: 10px;
-  transition: transform 0.06s ease, background-color 0.2s ease, color 0.2s ease,
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1.6rem 2rem;
+  border-radius: 16px;
+  transition: transform 0.06s ease, background-color 0.2s ease,
     box-shadow 0.2s ease;
   user-select: none;
 }
 .btn:active {
   transform: translateY(1px);
 }
-
 .btn-primary {
   background: var(--primary);
-  color: white;
-  box-shadow: 0 4px 12px rgba(79, 140, 255, 0.35);
+  color: #111;
+  box-shadow: 0 8px 22px rgba(158, 123, 255, 0.35);
 }
 .btn-primary:hover {
   background: var(--primary-600);
 }
-
 .btn-ghost {
   background: transparent;
   color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Message bar */
+/* Status message */
 .message {
-  min-height: 3.2rem;
-  padding: 1rem 1.2rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-  transition: background 0.25s ease, color 0.25s ease;
+  min-height: 3.4rem; /* prevents layout shift */
+  width: 100%;
+  font-size: 1.7rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1.2rem 1.6rem;
+  margin-top: var(--space-2);
 }
 
 /* Badges */
@@ -224,20 +184,22 @@ body {
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
+  justify-content: center;
+  margin-top: auto; /* push to bottom for nice balance */
 }
 .badge {
   font-size: 1.4rem;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.6rem 0.9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.7rem 1.1rem;
   border-radius: 999px;
 }
 .badge-accent {
-  background: rgba(255, 209, 102, 0.18);
-  border-color: rgba(255, 209, 102, 0.45);
+  background: rgba(241, 194, 125, 0.2);
+  border-color: rgba(241, 194, 125, 0.5);
 }
 
-/* Utility: visually hidden (accessible labels) */
+/* Accessibility helpers */
 .visually-hidden {
   position: absolute !important;
   width: 1px;
@@ -251,33 +213,27 @@ body {
   overflow: hidden;
 }
 
-/* Game state helpers (optional classes your JS can toggle if you want)
-   You can keep using inline style changes; these are here for future polish. */
+/* Optional state themes (hooked up by JS if you want) */
 body.win .number {
-  background: var(--success);
-  color: #0d2617;
-  transform: scale(1.05);
+  background: var(--success); /* use same color as highscore */
+  color: #0d0d0d; /* dark text for contrast */
+  box-shadow: 0 0 25px var(--success); /* soft green glow */
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+body.win .message {
+  color: var(--accent); /* same green as highscore */
+  text-shadow: 0 0 12px var(--accent);
+  transition: all 0.3s ease;
 }
 body.lose .number {
   background: var(--danger);
   color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 840px) {
-  .content {
-    grid-template-columns: 1fr;
-  }
-  .game-header {
-    padding-bottom: calc(var(--space-6) + 5rem);
-  }
-  .number {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .left,
-  .right {
-    align-items: center;
-    text-align: center;
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

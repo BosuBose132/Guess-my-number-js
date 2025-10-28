@@ -2,6 +2,7 @@
 
 A simple interactive **JavaScript DOM project** that demonstrates how to manipulate and update the DOM dynamically.  
 Built as part of my practice to strengthen **core JavaScript concepts** like event handling, DOM selection, state updates, and UI feedback.
+
 ---
 
 ##  **Live Demo**

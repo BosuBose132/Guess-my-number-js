@@ -2,6 +2,10 @@
 
 A simple interactive **JavaScript DOM project** that demonstrates how to manipulate and update the DOM dynamically.  
 Built as part of my practice to strengthen **core JavaScript concepts** like event handling, DOM selection, state updates, and UI feedback.
+---
+
+##  **Live Demo**
+🕹️ [Play it on GitHub Pages](https://bosubose132.github.io/Guess-my-number-js/)
 
 ---
 
@@ -51,12 +55,6 @@ The main purpose of this project is to **apply and demonstrate DOM concepts** in
 - **HTML5** – structure  
 - **CSS3** – layout, styling, and animations  
 - **Vanilla JavaScript (ES6)** – DOM manipulation, events, and game logic  
-
----
-
-##  **Live Demo**
-🕹️ [Play it on GitHub Pages](https://bosubose132.github.io/Guess-my-number-js/)
-
 
 ---
 

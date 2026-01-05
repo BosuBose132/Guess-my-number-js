@@ -13,7 +13,7 @@
   <body>
     <main>
       <div class="game">
-        <h1 class="title">GUESS MY NUMBER</h1>
+        <h2 class="title">GUESS MY NUMBER</h2>
         <p class="subtitle">(Between 1 and 20)</p>
 
         <div class="number" aria-live="polite">?</div>
@@ -40,7 +40,42 @@
         <button class="btn btn-ghost again" aria-label="Play again">
           Play Again
         </button>
-        <button id="start-demo" class="btn btn-ghost">Demo</button>
+        <button class="open-modal btn-instructions btn-ghost again">
+          Instructions
+        </button>
+
+        <div class="modal hidden">
+          <button class="close-modal">&times;</button>
+          <h2>Game Rules</h2>
+          <ol>
+            <li>
+              The computer will randomly select a number between 1 and 20.
+            </li>
+            <li>
+              You have to guess the number by entering your guess in the input
+              field and clicking the "Guess" button.
+            </li>
+            <li>
+              After each guess, you will receive feedback indicating whether
+              your guess is too high, too low, or correct.
+            </li>
+            <li>
+              You start with a score of 20, and each incorrect guess will
+              decrease your score by 1.
+            </li>
+            <li>
+              If you guess the correct number, your current score will be
+              compared to the highscore, and if it's higher, it will update the
+              highscore.
+            </li>
+            <li>
+              You can click the "Play Again" button to reset the game and try
+              again.
+            </li>
+            <li>Have fun and try to achieve the highest score possible!</li>
+          </ol>
+        </div>
+        <div class="overlay hidden"></div>
       </div>
     </main>
 

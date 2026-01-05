@@ -38,6 +38,7 @@
 }
 html {
   font-size: 62.5%;
+  overflow: hidden;
 }
 body {
   min-height: 100vh;
@@ -54,6 +55,7 @@ body {
   place-items: center;
   padding: var(--space-6) var(--space-4);
   line-height: 1.55;
+  overflow: hidden;
 }
 
 /* Centered, portrait card */
@@ -62,13 +64,16 @@ main {
   display: grid;
   place-items: center;
 }
+
 .game {
   width: min(520px, 92%);
-  min-height: 680px; /* taller than wide */
+  height: min(96vh, 785px);
+  min-height: 0;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--bg-soft), var(--bg-soft-2));
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow);
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-4) var(--space-5);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +85,7 @@ main {
 
 /* Title & subtitle */
 .title {
-  font-weight: 800;
+  font-weight: 600;
   font-size: var(--fs-2);
   letter-spacing: 0.06em;
   text-align: center;
@@ -94,11 +99,11 @@ main {
 /* Big number badge */
 .number {
   font-family: 'Space Mono', ui-monospace, Menlo, monospace;
-  font-size: var(--fs-num);
+  font-size: clamp(3.6rem, 3rem + 3vw, 6.2rem);
   color: #1c0f22;
   background: #fff;
-  width: 132px;
-  height: 132px;
+  width: 112px;
+  height: 112px;
   display: grid;
   place-items: center;
   border-radius: 100%;
@@ -146,6 +151,17 @@ main {
     box-shadow 0.2s ease;
   user-select: none;
 }
+.btn-instructions {
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.6rem 2rem;
+  border-radius: 16px;
+  transition: transform 0.06s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  user-select: none;
+}
 .btn:active {
   transform: translateY(1px);
 }
@@ -168,15 +184,16 @@ main {
 
 /* Status message */
 .message {
-  min-height: 3.4rem; /* prevents layout shift */
+  min-height: 4.6rem;
   width: 100%;
   font-size: 1.7rem;
   text-align: center;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  padding: 1.2rem 1.6rem;
+  padding: 1.6rem 2rem;
   margin-top: var(--space-2);
+  align-items: center;
 }
 
 /* Badges */
@@ -185,7 +202,7 @@ main {
   gap: var(--space-2);
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: auto; /* push to bottom for nice balance */
+  margin-top: auto;
 }
 .badge {
   font-size: 1.4rem;
@@ -199,7 +216,6 @@ main {
   border-color: rgba(241, 194, 125, 0.5);
 }
 
-/* Accessibility helpers */
 .visually-hidden {
   position: absolute !important;
   width: 1px;
@@ -213,12 +229,14 @@ main {
   overflow: hidden;
 }
 
-/* Optional state themes (hooked up by JS if you want) */
 body.win .number {
-  background: var(--success); /* use same color as highscore */
-  color: #0d0d0d; /* dark text for contrast */
-  box-shadow: 0 0 25px var(--success); /* soft green glow */
-  transform: scale(1.1);
+  background: linear-gradient(180deg, #b59cff, #9e7bff);
+
+  color: #1c0f22;
+
+  box-shadow: 0 0 14px rgba(158, 123, 255, 0.45);
+
+  transform: scale(1.08);
   transition: all 0.3s ease;
 }
 body.win .message {
@@ -231,89 +249,127 @@ body.lose .number {
   color: #fff;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-  }
-}
+.show-modal {
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.2rem 1.6rem;
+  border-radius: 14px;
+  cursor: pointer;
 
-.tour-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(6, 6, 6, 0.6);
-  z-index: 9998;
-  pointer-events: auto;
-}
-
-.tour-spotlight {
-  position: absolute;
-  border-radius: 12px;
-  border: 3px solid var(--accent);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(241, 194, 125, 0.25);
   background: transparent;
-  z-index: 9999;
-  transition: all 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
-  pointer-events: none;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.tour-spotlight.round {
-  border-radius: 999px;
+.show-modal:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.tour-tooltip {
+.close-modal {
   position: absolute;
-  max-width: 360px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(250, 250, 250, 0.96)
-  );
-  color: #111;
+  top: 1.2rem;
+  right: 1.6rem;
+
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-  padding: 16px 18px;
-  font-size: 1.4rem;
-  line-height: 1.3;
-  z-index: 10000;
-  transition: transform 0.18s ease, opacity 0.18s ease;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+
+  cursor: pointer;
+  font-size: 2.4rem;
 }
 
-/* tooltip arrow */
-.tour-tooltip::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: inherit;
-  transform: rotate(45deg);
-  box-shadow: inherit;
+.close-modal:hover {
+  border-color: rgba(241, 194, 125, 0.35);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* controls row */
-.tour-controls {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  justify-content: flex-end;
+/* CLASSES TO MAKE MODAL WORK */
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(650px, 92%);
+  height: min(78vh, 750px);
+  max-height: 92vh;
+  overflow-y: auto;
+
+  padding: 4rem 3rem 3rem 3.6rem;
+  border-radius: var(--radius-xl);
+
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg-soft-2));
+  color: var(--text);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow);
+  z-index: 10001;
+}
+
+.modal h2 {
+  font-size: 2.6rem;
+  margin-bottom: 2rem;
+  text-align: center;
   align-items: center;
 }
-.tour-controls .btn {
-  padding: 0.6rem 1rem;
-  font-size: 1.3rem;
+
+.modal p,
+.modal li {
+  font-size: 1.7rem;
+  line-height: 1.65;
 }
 
-/* small hint for keyboard */
-.tour-hint {
-  margin-top: 8px;
-  font-size: 1.1rem;
-  color: #5b5b5b;
+.modal ol {
+  margin: 2.4rem auto;
+  padding: 0;
+  width: 85%;
+  list-style-position: inside;
 }
 
-/* responsive tweak */
-@media (max-width: 640px) {
-  .tour-tooltip {
-    max-width: 280px;
-    font-size: 1.3rem;
-    padding: 12px;
-  }
+.modal li {
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+.modal li:last-child {
+  margin-bottom: 0;
+}
+
+.modal li {
+  text-align: left;
+}
+
+.modal .rules {
+  width: 70%;
+  margin: 3rem auto 0 auto;
+  padding: 0;
+  list-style-position: inside;
+}
+
+.modal .rules li {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  z-index: 10000;
 }

@@ -11,6 +11,10 @@
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 document.querySelector('.number').textContent = '?';
+const btnOpenModal = document.querySelector('.open-modal');
+const btnCloseModal = document.querySelector('.close-modal');
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
 
 let score = 20;
 let highscore = 0;
@@ -72,5 +76,27 @@ document.querySelector('.guess').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     document.querySelector('.check').click(); // reuse your existing click handler
+  }
+});
+
+function openModal() {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+}
+
+function closeModal() {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+}
+
+btnOpenModal.addEventListener('click', openModal);
+
+btnCloseModal.addEventListener('click', closeModal);
+
+overlay.addEventListener('click', closeModal);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key == 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
   }
 });
